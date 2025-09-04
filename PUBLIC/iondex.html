@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+        }
+
+        /* Container styling */
+        .container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 400px;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Header */
+        h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* Input styling */
+        input[type="text"] {
+            width: 90%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #2575fc;
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            background: #2575fc;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background: #6a11cb;
+            transform: scale(1.05);
+        }
+
+        /* Short URL display */
+        .short-url {
+            margin-top: 25px;
+            word-break: break-word;
+            font-weight: bold;
+            font-size: 16px;
+            color: #2575fc;
+        }
+
+        .short-url a {
+            text-decoration: none;
+            color: #2575fc;
+        }
+
+        .short-url a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            input[type="text"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>URL Shortener</h2>
+        <input type="text" id="longUrl" placeholder="Enter URL here">
+        <br>
+        <button onclick="shortenURL()">Shorten URL</button>
+        <div class="short-url" id="shortUrl"></div>
+    </div>
+
+    <script>
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        function shortenURL() {
+            const longUrl = document.getElementById('longUrl').value;
+            if (!longUrl) {
+                alert("Please enter a URL!");
+                return;
+            }
+
+            const shortCode = generateRandomString(6);
+            const shortUrl = window.location.origin + '/' + shortCode;
+
+            document.getElementById('shortUrl').innerHTML = `Short URL: <a href="${longUrl}" target="_blank">${shortUrl}</a>`;
+        }
+    </script>
+</body>
+</html>
